@@ -7,12 +7,20 @@ namespace McpWebServer.Tools;
 [McpServerToolType]
 public class ReverseMessageTool
 {
+    // use Logger if needed
+    private readonly ILogger<ReverseMessageTool> _logger;
+    public ReverseMessageTool(ILogger<ReverseMessageTool> logger)
+    {
+        _logger = logger;
+    }
+
     [McpServerTool, Description("Echoes back message in reverse.")]
-    public static string ReverseMessage(
+    public string ReverseMessage(
         [Description("The message or string that will be reversed")] string message
     )
     {
         string reversedMessage = new string(message.ToCharArray().Reverse().ToArray());
-        return $"ReverseMessageTool response: {reversedMessage}";
+        _logger.LogInformation("******* Reversed message: {ReversedMessage}", reversedMessage);
+        return $"ReverseMessage Tool response: {reversedMessage}";
     }
 }

@@ -10,12 +10,17 @@ namespace McpWebServer.Tools;
 [McpServerToolType]
 public class GreetingTool
 {
-    public GreetingTool()
+    private readonly ILogger<GreetingTool> _logger;
+    public GreetingTool(ILogger<GreetingTool> logger)
     {
+        _logger = logger;
     }
+
     [McpServerTool, Description("Says Hello to a user")]
-    public static string Echo([Description("The user name")] string username)
+    public string Echo([Description("The user name")] string username)
     {
-        return $"GreetingTool response: Hello {username}";
+        var result = $"Hello {username}";
+        _logger.LogInformation("******* Greeting result: {result}", result);
+        return $"Echo Tool response: {result}";
     }
 }
